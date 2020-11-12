@@ -1,0 +1,179 @@
+# App to control the electric heater by Savitr with WiFi module.
+#
+# Home Assistant entities.
+#
+# Version: 1.0.0.0
+# Author: antonwantstosleep, 2020.
+# License: MIT
+
+################################################
+## Sensors
+################################################
+sensor:
+  - platform: template
+    sensors:
+      savitr_mac:
+        friendly_name: "MAC-адрес"
+        value_template: ""
+
+      savitr_cmd_count:
+        friendly_name: "Счетчик команд"
+        value_template: ""
+
+      savitr_cmd_code:
+        friendly_name: "Код команды"
+        value_template: ""
+
+      savitr_power_supply_state:
+        friendly_name: "Состояние электросети"
+        value_template: ""
+
+      savitr_power_supply_loss_time:
+        friendly_name: "Время без электросети"
+        value_template: ""
+
+      savitr_heater_status:
+        friendly_name: "Статус обогревателя"
+        value_template: ""
+
+      savitr_coolant_temp:
+        friendly_name: "t° теплоносителя"
+        device_class: "temperature"
+        unit_of_measurement: "°C"
+        icon_template: mdi:coolant-temperature
+        value_template: ""
+
+      savitr_air_indoor_temp:
+        friendly_name: "t° воздуха в помещении"
+        device_class: "temperature"
+        unit_of_measurement: "°C"
+        icon_template: mdi:home-thermometer
+        value_template: ""
+
+      savitr_air_outdoor_temp:
+        friendly_name: "t° воздуха на улице"
+        device_class: "temperature"
+        unit_of_measurement: "°C"
+        value_template: ""
+
+      savitr_clock_weekday:
+        friendly_name: "День недели"
+        icon_template: mdi:clock
+        value_template: ""
+
+      savitr_clock_hours:
+        friendly_name: "Часы"
+        icon_template: mdi:clock
+        value_template: ""
+
+      savitr_clock_minutes:
+        friendly_name: "Минуты"
+        icon_template: mdi:clock
+        value_template: ""
+
+      savitr_clock_seconds:
+        friendly_name: "Секунды"
+        icon_template: mdi:clock
+        value_template: ""
+
+      savitr_clock:
+        friendly_name: "Время на обогревателе"
+        icon_template: mdi:clock
+        value_template: "{{ states('sensor.savitr_clock_weekday') }} {{ states('sensor.savitr_clock_hours') }}:{{ states('sensor.savitr_clock_minutes') }}:{{ states('sensor.savitr_clock_seconds') }}"
+
+################################################
+## Input number
+################################################
+input_number:
+  savitr_coolant_temp_setpoint:
+    name: "t° теплоносителя"
+    unit_of_measurement: "°C"
+    min: 1
+    max: 84
+    step: 1
+    mode: box
+    icon: mdi:thermometer-lines
+    # initial: 0
+
+  savitr_air_indoor_temp_setpoint:
+    name: "t° воздуха в помещении"
+    unit_of_measurement: "°C"
+    min: 1
+    max: 35
+    step: 1
+    mode: box
+    icon: mdi:thermometer-lines
+    # initial: 0
+
+  savitr_coolant_temp_min:
+    name: "Мин. t° теплоносителя"
+    unit_of_measurement: "°C"
+    min: 0
+    max: 95
+    step: 1
+    mode: box
+    icon: mdi:thermometer-chevron-down
+    # initial: 0
+
+  savitr_coolant_temp_max:
+    name: "Макс. t° теплоносителя"
+    unit_of_measurement: "°C"
+    min: 0
+    max: 95
+    step: 1
+    mode: box
+    icon: mdi:thermometer-chevron-up
+    # initial: 0
+
+  savitr_air_indoor_temp_min:
+    name: "Мин. t° воздуха в помещении"
+    unit_of_measurement: "°C"
+    min: 0
+    max: 95
+    step: 1
+    mode: box
+    icon: mdi:thermometer-chevron-down
+    # initial: 0
+
+  savitr_air_indoor_temp_max:
+    name: "Макс. t° воздуха в помещении"
+    unit_of_measurement: "°C"
+    min: 0
+    max: 95
+    step: 1
+    mode: box
+    icon: mdi:thermometer-chevron-up
+    # initial: 0
+
+################################################
+## Input select
+################################################
+input_select:
+
+  savitr_heating_mode:
+    name: "Режим нагрева"
+    options:
+      - heating_off
+      - coolant_temp_constant
+      - coolant_temp_daily_cycle
+      - coolant_temp_weekly_cycle
+      - coolant_temp_outdoor_air_temp
+      - remote
+    icon: mdi:cog
+
+  savitr_heating_power:
+    name: "Мощность нагрева, %"
+    options:
+      - 33
+      - 66
+      - 100
+    icon: mdi:cog
+
+################################################
+## Input boolean
+################################################
+input_boolean:
+
+  savitr_air_indoor_temp_control:
+    name: "Откл. по t° воздуха"
+    icon: mdi:cog
